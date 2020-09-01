@@ -18,11 +18,24 @@ class VerifierFactory
     public function create(int $length = self::DEFAULT_VERIFIER_LENGTH): Verifier
     {
         $verifier = new Verifier($length);
+
+        $this->generate($verifier);
+
+        return $verifier;
+    }
+
+    public function createFromVerifier(string $verifier): Verifier
+    {
+        $verifier = new Verifier(0, $verifier);
+
+        return $verifier;
+    }
+
+    private function generate(Verifier $verifier): void
+    {
         $verifier->setValidChars($this->getValidChars());
 
         $verifier->generate();
-
-        return $verifier;
     }
 
     private function getValidChars(): array

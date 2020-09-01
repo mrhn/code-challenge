@@ -2,29 +2,35 @@
 
 namespace Mrhn\CodeChallenge;
 
+/**
+ * Class CodeChallenge
+ * @package Mrhn\CodeChallenge
+ *
+ * Based on the medium article https://medium.com/zenchef-tech-and-product/how-to-generate-a-pkce-challenge-with-php-fbee1fa29379
+ */
 class CodeChallenge
 {
-    private string $verifier;
+    private Verifier $verifier;
 
-    private string $challenge;
+    private ?string $challenge;
 
-    public function __construct()
+    public function __construct(Verifier $verifier)
     {
-
+        $this->verifier = $verifier;
     }
 
-    public function getVerifier(): string
+    public function generate(): self
     {
-        return $this->verifier;
+        $base64 = new Base64();
+        $hash = hash('sha256', $this->verifier->getVerifier());
+
+        $this->challenge = $base64->urlEncode(pack('H*', $hash));
+
+        return $this;
     }
 
     public function getChallenge(): string
     {
         return $this->challenge;
-    }
-
-    public function calculateChallenge(): void
-    {
-
     }
 }

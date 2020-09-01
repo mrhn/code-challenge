@@ -16,7 +16,7 @@ class Verifier
         $this->length = $verifier ? strlen($verifier) : $length;
     }
 
-    public function generate()
+    public function generate(): self
     {
         $verifier = '';
 
@@ -27,6 +27,8 @@ class Verifier
         }
 
         $this->verifier = $verifier;
+
+        return $this;
     }
 
     public function getVerifier(): ?string
