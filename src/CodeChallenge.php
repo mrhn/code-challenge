@@ -2,6 +2,8 @@
 
 namespace Mrhn\CodeChallenge;
 
+use Mrhn\CodeChallenge\Encoding\Base64;
+
 /**
  * Class CodeChallenge
  * @package Mrhn\CodeChallenge
@@ -22,15 +24,20 @@ class CodeChallenge
     public function generate(): self
     {
         $base64 = new Base64();
-        $hash = hash('sha256', $this->verifier->getVerifier());
+        $hash = hash('sha256', $this->verifier->getValue());
 
         $this->challenge = $base64->urlEncode(pack('H*', $hash));
 
         return $this;
     }
 
-    public function getChallenge(): string
+    public function getValue(): string
     {
         return $this->challenge;
+    }
+
+    public function getVerifier(): Verifier
+    {
+        return $this->verifier;
     }
 }

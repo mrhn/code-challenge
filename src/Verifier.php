@@ -31,7 +31,7 @@ class Verifier
         return $this;
     }
 
-    public function getVerifier(): ?string
+    public function getValue(): ?string
     {
         return $this->verifier;
     }

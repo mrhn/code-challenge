@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
 use Mrhn\CodeChallenge\Verifier;
 use Mrhn\CodeChallenge\VerifierFactory;
@@ -16,7 +16,7 @@ class VerifierTest extends TestCase
         $verifier = new Verifier($verifierLength, $verifierCode);
 
         $this->assertEquals($verifierLength, $verifier->getLength());
-        $this->assertEquals($verifierCode, $verifier->getVerifier());
+        $this->assertEquals($verifierCode, $verifier->getValue());
     }
 
     public function test_can_create_verifier_from_verifier_code_override_length(): void
@@ -27,16 +27,6 @@ class VerifierTest extends TestCase
         $verifier = new Verifier(6942, $verifierCode);
 
         $this->assertEquals($verifierLength, $verifier->getLength());
-        $this->assertEquals($verifierCode, $verifier->getVerifier());
-    }
-
-    public function test_can_generate_random_verifier(): void
-    {
-        $verifierLength = 64;
-        $verifier = (new VerifierFactory())->create($verifierLength);
-
-        srand(6942);
-        $this->assertEquals($verifierLength, strlen($verifier->getVerifier()));
-        $this->assertTrue((bool) preg_match('/[A-Za-z0-9-._~]{43,128}/', $verifier->getVerifier()));
+        $this->assertEquals($verifierCode, $verifier->getValue());
     }
 }

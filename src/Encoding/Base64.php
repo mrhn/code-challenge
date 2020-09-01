@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Mrhn\CodeChallenge;
+namespace Mrhn\CodeChallenge\Encoding;
 
 /**
  * Class Base64
